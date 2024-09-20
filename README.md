@@ -1,5 +1,14 @@
 # Vanilla JS + CSS programming problem
 
+## Deployment
+The application and test results are now automatically deployed to GitHub Pages on each push to the main branch.
+
+### Links
+- **Main Application**: [https://sillyas2010.github.io/centered_counter/](https://sillyas2010.github.io/centered_counter/)
+- **Unit Test Results**: [https://sillyas2010.github.io/centered_counter/test-results/unit-coverage/](https://sillyas2010.github.io/centered_counter/test-results/unit)
+- **Unit Test Coverage**: [https://sillyas2010.github.io/centered_counter/test-results/unit-coverage/](https://sillyas2010.github.io/centered_counter/test-results/unit-coverage/)
+- **E2E Test Results**: [https://sillyas2010.github.io/centered_counter/test-results/e2e/](https://sillyas2010.github.io/centered_counter/test-results/e2e/)
+
 ## Requisites
 
 - node
@@ -70,6 +79,11 @@ To format the code:
 ```sh
 npm run format
 ```
+
+## Testing
+- **Unit Tests**: Added Vitest tests covering all main functionalities
+- **E2E Tests**: Implemented Playwright tests for full user journey
+- **Accessibility**: Integrated axe-core for automated accessibility checks
 
 ## Deployment
 

@@ -14,7 +14,7 @@ permissions:
   id-token: write
 
 jobs:
-  deploy:
+  test-and-deploy:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -22,22 +22,44 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: 'npm'
+      
       - name: Install dependencies
         run: npm ci
-      - name: Build
+      
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+      
+      - name: Run tests
+        run: |
+          npm run test
+          npm run test:coverage
+          npm run test:ui
+      
+      - name: Build application
         run: npm run build
+      
+      - name: Prepare test results
+        run: |
+          mkdir -p ./dist/test-results
+          [ -d "playwright-report" ] && cp -R playwright-report ./dist/test-results/e2e || echo "No Playwright report found"
+          [ -d "test-report" ] && cp -R test-report ./dist/test-results/unit || echo "No test report found"
+          [ -d "coverage" ] && cp -R coverage ./dist/test-results/unit-coverage || echo "No coverage report found"
+      
       - name: Setup Pages
         uses: actions/configure-pages@v4
+      
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           # Upload dist folder
           path: './dist'
+      
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4

@@ -9,6 +9,10 @@ export default defineConfig({
     assetsDir: 'assets',
   },
   test: {
+    coverage: {
+      include: ['src'],
+      exclude: ['src/main.ts'],
+    },
     exclude: [...configDefaults.exclude, 'src/e2e'],
   },
 });

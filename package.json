@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "test": "vitest",
+    "test": "npx vitest --reporter=html --outputFile=test-report/index.html --watch=false",
+    "test:coverage": "npx vitest --coverage --reporter=html --outputFile=coverage/index.html --watch=false",
     "test:ui": "npx playwright install && npx playwright test",
     "lint": "eslint . --ext .ts,.tsx",
     "format": "prettier --write .",
@@ -19,6 +20,8 @@
     "@types/node": "^22.5.5",
     "@typescript-eslint/eslint-plugin": "^5.59.0",
     "@typescript-eslint/parser": "^5.59.0",
+    "@vitest/coverage-v8": "^1.6.0",
+    "@vitest/ui": "^1.6.0",
     "eslint": "^8.38.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^4.2.1",
@@ -26,6 +29,6 @@
     "prettier": "^2.8.7",
     "typescript": "^5.2.2",
     "vite": "^5.0.8",
-    "vitest": "^1.2.1"
+    "vitest": "^1.6.0"
   }
 }

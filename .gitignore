@@ -12,6 +12,12 @@ dist
 dist-ssr
 *.local
 
+# test results
+playwright-report
+test-report
+test-results
+coverage
+
 # history files
 .history
 
