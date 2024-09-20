@@ -1,3 +1,5 @@
+import AxeBuilder from '@axe-core/playwright';
+
 import { test, expect } from '@playwright/test';
 
 const startAtSelector = '#start_at';
@@ -63,5 +65,18 @@ test.describe('Counter Application', () => {
       'aria-label',
       'Increment counter'
     );
+  });
+
+  test('page passes axe accessibility tests', async ({ page }) => {
+    const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
+
+    if (accessibilityScanResults.violations.length > 0) {
+      console.log(
+        'Accessibility violations:',
+        JSON.stringify(accessibilityScanResults.violations, null, 2)
+      );
+    }
+
+    expect(accessibilityScanResults.violations.length).toBe(0);
   });
 });
