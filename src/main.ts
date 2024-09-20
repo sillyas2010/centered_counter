@@ -1,43 +1,56 @@
 import { factory } from './factory';
 
-let count = factory(0, 1);
+// DOM Elements
+const startAtInput = document.getElementById('start_at') as HTMLInputElement;
+const stepInput = document.getElementById('step') as HTMLInputElement;
+const countButton = document.getElementById('count_button') as HTMLButtonElement;
+const currentCountDisplay = document.getElementById('current_count') as HTMLSpanElement;
 
-function update_count_and_reset_counter() {
-  const start = validateInput(start_at_control.value, 0);
-  const step = validateInput(step_control.value, 1);
-  count = factory(start, step);
-  current_count.textContent = start.toString();
+// State
+let countFunction: ReturnType<typeof factory>;
+
+// Functions
+function updateCountAndResetCounter(): void {
+  const start = parseInt(startAtInput.value, 10) || 0;
+  const step = parseInt(stepInput.value, 10) || 1;
+  countFunction = factory(start, step);
+  currentCountDisplay.textContent = start.toString();
 }
 
-function validateInput(value: string, defaultValue: number): number {
-  const parsed = parseInt(value);
-  return isNaN(parsed) ? defaultValue : parsed;
+function updateCountText(): void {
+  currentCountDisplay.textContent = countFunction().toString();
 }
 
-const start_at_control = document.getElementById('start_at') as HTMLInputElement;
+function setupInputValidation(inputElement: HTMLInputElement): void {
+  type InputElement = HTMLInputElement & { previousValue: string };
 
-const step_control = document.getElementById('step') as HTMLInputElement;
-
-start_at_control?.addEventListener('input', update_count_and_reset_counter);
-step_control?.addEventListener('input', update_count_and_reset_counter);
-
-const count_button = document.querySelector('#count_button') as HTMLButtonElement;
-
-const current_count = document.querySelector('#current_count') as HTMLSpanElement;
-
-function update_count() {
-  current_count.textContent = count().toString();
+  inputElement.addEventListener('focus', function (this: InputElement) {
+    this.previousValue = this.value;
+  });
+  inputElement.addEventListener('keydown', function (this: InputElement) {
+    this.previousValue = this.value;
+  });
+  inputElement.addEventListener('input', function (this: InputElement): void {
+    if (!this.validity.valid) {
+      this.value = this.previousValue;
+    }
+  });
 }
 
-count_button.addEventListener('click', update_count);
-
-// Initialize the counter
-update_count_and_reset_counter();
-
-// Keyboard navigation
-count_button.addEventListener('keydown', (event) => {
+function handleCountButtonKeydown(event: KeyboardEvent): void {
   if (event.key === 'Enter' || event.key === ' ') {
     event.preventDefault();
-    update_count();
+    updateCountText();
   }
-});
+}
+
+// Event Listeners
+startAtInput.addEventListener('input', updateCountAndResetCounter);
+stepInput.addEventListener('input', updateCountAndResetCounter);
+countButton.addEventListener('click', updateCountText);
+countButton.addEventListener('keydown', handleCountButtonKeydown);
+setupInputValidation(startAtInput);
+setupInputValidation(stepInput);
+
+// Initialize
+updateCountAndResetCounter();
