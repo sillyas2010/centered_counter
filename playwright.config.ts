@@ -21,7 +21,7 @@ const config: PlaywrightTestConfig = {
 
   use: {
     // Base URL to use in actions like `await page.goto('/')`.
-    baseURL: 'http://localhost:4173/interview_counter/',
+    baseURL: 'http://localhost:4173/centered_counter/',
 
     // Collect trace when retrying the failed test.
     trace: 'on-first-retry',
@@ -35,7 +35,7 @@ const config: PlaywrightTestConfig = {
   ],
   webServer: {
     command: 'npm run build && npm run preview',
-    url: 'http://localhost:4173/interview_counter/',
+    url: 'http://localhost:4173/centered_counter/',
     reuseExistingServer: !process.env.CI,
     timeout: 120 * 1000,
     stdout: 'ignore',

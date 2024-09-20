@@ -73,7 +73,7 @@ npm run format
 
 ## Deployment
 
-This project is set up to automatically deploy to GitHub Pages when changes are pushed to the main branch. You can access the live site at: https://[your-github-username].github.io/interview_counter/
+This project is set up to automatically deploy to GitHub Pages when changes are pushed to the main branch. You can access the live site at: https://[your-github-username].github.io/centered_counter/
 
 To deploy manually:
 
