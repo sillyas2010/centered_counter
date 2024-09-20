@@ -1,29 +1,55 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <link rel="stylesheet" href="/src/style/main.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>Centered counter</title>
-    </head>
+    <title>Centered counter</title>
+  </head>
   <body>
-      <main>
-        <div class="controls">
-          <div class="control">
-            <label for="start_at">Start at</label>
-            <input name="start_at" value="0" id="start_at"/>
-          </div>
+    <main>
+      <h1 class="visually-hidden">Interactive Counter</h1>
+      <form class="controls" aria-labelledby="controls-heading">
+        <h2 id="controls-heading" class="visually-hidden">Counter Controls</h2>
+        <div class="control">
+          <label for="start_at">Start at</label>
+          <input
+            type="number"
+            name="start_at"
+            id="start_at"
+            value="0"
+            min="0"
+            step="1"
+            required
+            aria-describedby="start-at-description"
+          />
+          <p id="start-at-description" class="visually-hidden">
+            Enter the starting value for the counter
+          </p>
+        </div>
         <div class="control">
           <label for="step">Step</label>
-          <input name="step" value="1" id="step"/>
+          <input
+            type="number"
+            name="step"
+            id="step"
+            value="1"
+            min="1"
+            step="1"
+            required
+            aria-describedby="step-description"
+          />
+          <p id="step-description" class="visually-hidden">
+            Enter the step value for incrementing the counter
+          </p>
         </div>
-        </div>
-      </div>
-      <button class="count_button">
-        <span class="current_count">
-          0
-        </span>
-      </button>
+      </form>
+      <section class="counter-display" aria-labelledby="counter-heading">
+        <h2 id="counter-heading" class="visually-hidden">Counter Display</h2>
+        <button id="count_button" aria-live="polite" aria-label="Increment counter">
+          <span id="current_count" aria-label="Current count">0</span>
+        </button>
+      </section>
     </main>
     <script type="module" src="/src/main.ts"></script>
   </body>
